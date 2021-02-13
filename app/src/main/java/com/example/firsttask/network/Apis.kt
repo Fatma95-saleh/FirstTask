@@ -8,7 +8,6 @@ import retrofit2.http.GET
 interface Apis {
 
     @GET("posts")
-
     fun getData():Call<ArrayList<PostsData>>
 
     @GET("comments")

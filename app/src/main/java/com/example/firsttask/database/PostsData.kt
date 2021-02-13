@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "posts_table")
+data class PostsData(
 
-data class PostsData (
-
-        @PrimaryKey(autoGenerate = true)
-        var userId:Int,
-        @ColumnInfo(name="postId")
-        var id:Int,
-        @ColumnInfo(name = "postTitle")
-        var title:String,
-        @ColumnInfo(name = "postBody")
-        var body:String
+    @ColumnInfo(name = "id")
+    var userId: Int,
+    @PrimaryKey
+    @ColumnInfo(name = "postId")
+    var id: Int,
+    @ColumnInfo(name = "postTitle")
+    var title: String,
+    @ColumnInfo(name = "postBody")
+    var body: String
 
 )

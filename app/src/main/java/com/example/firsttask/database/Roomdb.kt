@@ -7,28 +7,32 @@ import androidx.room.RoomDatabase
 import com.example.firsttask.MvvMApp
 import com.example.firsttask.PostsAdapter.PostData
 
-@Database(entities=[PostData::class],version=1)
-abstract class Roomdb :RoomDatabase(){
+@Database(entities = [PostsData::class], version = 2, exportSchema = false)
+abstract class Roomdb : RoomDatabase() {
 
-    abstract fun userDao():PostDao
+    abstract val postsDao: PostDao
 
-    companion object{
+    companion object {
 
-        private var INSTANCE: Roomdb?= null
+        @Volatile
+        private var INSTANCE: Roomdb? = null
 
-        fun getAppDatabase(context: Context): Roomdb? {
+        fun getInstance(context: Context): Roomdb {
+            synchronized(this) {
+                var instance = INSTANCE
 
-            if(INSTANCE == null ) {
-
-                INSTANCE = Room.databaseBuilder<Roomdb>(
-                        MvvMApp.applicationContext(), Roomdb::class.java, "AppDBB"
-                )
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        Roomdb::class.java,
+                        "posts_db"
+                    )
+                        .fallbackToDestructiveMigration()
                         .build()
-
+                    INSTANCE = instance
+                }
+                return instance
             }
-            return INSTANCE
         }
-
     }
-
 }

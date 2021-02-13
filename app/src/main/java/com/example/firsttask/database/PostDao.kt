@@ -8,10 +8,10 @@ import androidx.room.Query
 interface PostDao {
 
    @Insert
-   suspend fun insertPosts(posts:ArrayList<PostsData>)
+   fun insertPosts(posts:ArrayList<PostsData>)
 
 
     @Query("SELECT * FROM posts_table")
-    fun getPosts():ArrayList<PostsData>
+    fun getPosts():List<PostsData>
 
 }
